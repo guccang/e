@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun English Learning for Kids</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ======== HOME PAGE ======== -->
+<div id="home-page" class="page active">
+  <div class="stars-container" id="stars-container"></div>
+  <h1 class="main-title bounce-in">🌟 Fun English! 🌟</h1>
+  <p class="subtitle">Tap a card to learn!</p>
+
+  <div class="home-cards">
+    <div class="home-card card-alphabet" onclick="showPage('alphabet-page')">
+      <span class="home-card-icon">🔤</span>
+      <span class="home-card-text">ABC</span>
+      <span class="home-card-sub">Alphabet</span>
+    </div>
+    <div class="home-card card-colors" onclick="showPage('colors-page')">
+      <span class="home-card-icon">🎨</span>
+      <span class="home-card-text">Colors</span>
+      <span class="home-card-sub">Red Blue Green</span>
+    </div>
+    <div class="home-card card-shapes" onclick="showPage('shapes-page')">
+      <span class="home-card-icon">🔺</span>
+      <span class="home-card-text">Shapes</span>
+      <span class="home-card-sub">Circle Square</span>
+    </div>
+    <div class="home-card card-daily" onclick="showPage('daily-page')">
+      <span class="home-card-icon">💬</span>
+      <span class="home-card-text">Phrases</span>
+      <span class="home-card-sub">Daily Talk</span>
+    </div>
+    <div class="home-card card-skits" onclick="showPage('skits-page')">
+      <span class="home-card-icon">🎭</span>
+      <span class="home-card-text">Skits</span>
+      <span class="home-card-sub">Mini Plays</span>
+    </div>
+    <div class="home-card card-stories" onclick="showPage('stories-page')">
+      <span class="home-card-icon">📖</span>
+      <span class="home-card-text">Stories</span>
+      <span class="home-card-sub">Tales & Fun</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======== ALPHABET PAGE ======== -->
+<div id="alphabet-page" class="page">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showPage('home-page')">🏠 Home</button>
+    <h2 class="page-title">🔤 Alphabet</h2>
+    <button class="sound-toggle" id="sound-toggle-alpha" onclick="toggleSound()" title="Sound on/off">🔊</button>
+  </div>
+
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="switchAlphaMode('letter', this)">Letters</button>
+    <button class="mode-tab" onclick="switchAlphaMode('word', this)">Words</button>
+    <button class="mode-tab" onclick="switchAlphaMode('mixed', this)">Mixed</button>
+  </div>
+
+  <div class="alphabet-grid" id="alphabet-grid"></div>
+
+  <!-- Big letter display -->
+  <div id="big-letter-overlay" class="big-letter-overlay hidden" onclick="hideBigLetter()">
+    <div class="big-letter-box">
+      <span class="big-letter" id="big-letter-char"></span>
+      <span class="big-letter-word" id="big-letter-word"></span>
+      <span class="big-letter-emoji" id="big-letter-emoji"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ======== COLORS PAGE ======== -->
+<div id="colors-page" class="page">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showPage('home-page')">🏠 Home</button>
+    <h2 class="page-title">🎨 Colors</h2>
+    <button class="sound-toggle" id="sound-toggle-colors" onclick="toggleSound()" title="Sound on/off">🔊</button>
+  </div>
+
+  <div class="colors-grid" id="colors-grid"></div>
+
+  <!-- Color quiz -->
+  <div class="quiz-section">
+    <h3 class="quiz-title">🎯 Find the Color!</h3>
+    <p class="quiz-prompt" id="color-quiz-prompt">Tap the <strong id="color-target-name">Red</strong> card!</p>
+    <div class="quiz-options" id="color-quiz-options"></div>
+    <p class="quiz-feedback" id="color-quiz-feedback"></p>
+    <button class="quiz-new-btn" onclick="newColorQuiz()">🔄 New Question</button>
+  </div>
+</div>
+
+<!-- ======== SHAPES PAGE ======== -->
+<div id="shapes-page" class="page">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showPage('home-page')">🏠 Home</button>
+    <h2 class="page-title">🔺 Shapes</h2>
+    <button class="sound-toggle" id="sound-toggle-shapes" onclick="toggleSound()" title="Sound on/off">🔊</button>
+  </div>
+
+  <div class="shapes-grid" id="shapes-grid"></div>
+
+  <!-- Shape drawing canvas area -->
+  <div class="draw-section">
+    <h3 class="quiz-title">✏️ Trace the Shape!</h3>
+    <div class="trace-area" id="trace-area">
+      <svg id="trace-svg" viewBox="0 0 300 300" width="300" height="300"></svg>
+    </div>
+    <p class="trace-hint" id="trace-hint">Move your finger or mouse over the dotted line!</p>
+    <button class="quiz-new-btn" onclick="newTraceShape()">🔄 New Shape</button>
+  </div>
+</div>
+
+<!-- ======== DAILY PHRASES PAGE ======== -->
+<div id="daily-page" class="page">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showPage('home-page')">🏠 Home</button>
+    <h2 class="page-title">💬 Daily Phrases</h2>
+    <button class="sound-toggle" id="sound-toggle-daily" onclick="toggleSound()" title="Sound on/off">🔊</button>
+  </div>
+
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="switchDailyMode('morning', this)">🌅 Morning</button>
+    <button class="mode-tab" onclick="switchDailyMode('social', this)">👋 Social</button>
+    <button class="mode-tab" onclick="switchDailyMode('mealtime', this)">🍽️ Mealtime</button>
+    <button class="mode-tab" onclick="switchDailyMode('bedtime', this)">🌙 Bedtime</button>
+  </div>
+
+  <div class="daily-phrases-container" id="daily-phrases-container">
+    <!-- Auto-cycling phrase display -->
+    <div class="daily-hero" id="daily-hero">
+      <div class="daily-hero-emoji" id="daily-hero-emoji">🌅</div>
+      <div class="daily-hero-en" id="daily-hero-en">Good morning!</div>
+      <div class="daily-hero-zh" id="daily-hero-zh">早上好！</div>
+    </div>
+
+    <div class="daily-controls">
+      <button class="daily-nav-btn" onclick="prevDailyPhrase()">⬅️</button>
+      <button class="daily-speak-btn" onclick="speakDailyCurrent()">🔊 Listen</button>
+      <button class="daily-nav-btn" onclick="nextDailyPhrase()">➡️</button>
+    </div>
+
+    <div class="daily-progress">
+      <span id="daily-index-indicator">1 / 5</span>
+    </div>
+
+    <div class="daily-auto-toggle">
+      <label class="auto-label">
+        <input type="checkbox" id="daily-auto-advance" onchange="toggleDailyAuto()"> Auto-play (3s)
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- ======== SCENARIO SKITS PAGE ======== -->
+<div id="skits-page" class="page">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showPage('home-page')">🏠 Home</button>
+    <h2 class="page-title">🎭 Mini Skits</h2>
+    <button class="sound-toggle" id="sound-toggle-skits" onclick="toggleSound()" title="Sound on/off">🔊</button>
+  </div>
+
+  <div class="skits-selector" id="skits-selector">
+    <button class="skit-select-btn active" onclick="selectSkit(0, this)">🍽️ Restaurant</button>
+    <button class="skit-select-btn" onclick="selectSkit(1, this)">🛒 Store</button>
+    <button class="skit-select-btn" onclick="selectSkit(2, this)">👋 Greeting</button>
+    <button class="skit-select-btn" onclick="selectSkit(3, this)">📚 School</button>
+  </div>
+
+  <div class="skit-stage" id="skit-stage">
+    <div class="skit-scene-tag" id="skit-scene-tag">Scene: At a Restaurant</div>
+    <div class="skit-character speaker-a" id="skit-char-a">👩 Waiter</div>
+    <div class="skit-character speaker-b" id="skit-char-b">👦 Customer</div>
+
+    <div class="skit-dialogue-box" id="skit-dialogue-box">
+      <div class="skit-line active-line" id="skit-line-a">Hello! What would you like?</div>
+      <div class="skit-line" id="skit-line-b">I'd like some juice, please.</div>
+    </div>
+
+    <div class="skit-controls">
+      <button class="skit-ctrl-btn" onclick="prevSkitLine()">⬅️ Prev</button>
+      <button class="skit-play-btn" onclick="toggleSkitAutoPlay()" id="skit-auto-btn">▶️ Auto Play</button>
+      <button class="skit-ctrl-btn" onclick="nextSkitLine()">Next ➡️</button>
+    </div>
+
+    <div class="skit-counter" id="skit-counter">Line 1 / 6</div>
+  </div>
+</div>
+
+<!-- ======== STORY SENTENCES PAGE ======== -->
+<div id="stories-page" class="page">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showPage('home-page')">🏠 Home</button>
+    <h2 class="page-title">📖 Story Time</h2>
+    <button class="sound-toggle" id="sound-toggle-stories" onclick="toggleSound()" title="Sound on/off">🔊</button>
+  </div>
+
+  <div class="stories-selector" id="stories-selector">
+    <button class="story-select-btn active" onclick="selectStory(0, this)">🐢 The Race</button>
+    <button class="story-select-btn" onclick="selectStory(1, this)">🦁 The Mouse</button>
+    <button class="story-select-btn" onclick="selectStory(2, this)">🐔 Red Hen</button>
+  </div>
+
+  <div class="story-card" id="story-card">
+    <div class="story-title-area">
+      <span class="story-title-emoji" id="story-title-emoji">🐢🐰</span>
+      <h3 class="story-heading" id="story-heading">The Tortoise and the Hare</h3>
+    </div>
+
+    <div class="story-sentence-display" id="story-sentence-display">
+      <div class="story-sentence-en" id="story-sentence-en">Once upon a time, there was a fast rabbit.</div>
+      <div class="story-sentence-zh" id="story-sentence-zh">从前，有一只跑得很快的兔子。</div>
+    </div>
+
+    <div class="story-progress-bar">
+      <div class="story-progress-fill" id="story-progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="story-controls">
+      <button class="story-ctrl-btn" onclick="prevStorySentence()">⬅️</button>
+      <button class="story-play-btn" onclick="toggleStoryAutoPlay()" id="story-auto-btn">▶️ Auto Read</button>
+      <button class="story-ctrl-btn" onclick="nextStorySentence()">➡️</button>
+    </div>
+
+    <div class="story-actions">
+      <button class="story-speak-btn" onclick="speakStoryCurrent()">🔊 Read Aloud</button>
+      <button class="story-restart-btn" onclick="restartStory()">🔄 Restart</button>
+    </div>
+
+    <div class="story-counter" id="story-counter">1 / 5</div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
