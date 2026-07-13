@@ -16,6 +16,180 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* ==========================================
+   Sidebar Navigation
+   ========================================== */
+
+/* --- Sidebar --- */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 72px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 0;
+  z-index: 50;
+  border-right: 1px solid rgba(255,255,255,0.15);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  box-shadow: 2px 0 20px rgba(0,0,0,0.08);
+}
+
+.sidebar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 60px;
+  min-height: 60px;
+  border: none;
+  border-radius: 16px;
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 6px 4px;
+  position: relative;
+  text-decoration: none;
+}
+
+.sidebar-item:hover {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.sidebar-item:active {
+  transform: scale(0.92);
+}
+
+.sidebar-item.active {
+  background: rgba(255,255,255,0.3);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(255,255,255,0.2);
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 24px;
+  background: #ffd93d;
+  border-radius: 0 3px 3px 0;
+}
+
+.sidebar-icon {
+  font-size: 26px;
+  line-height: 1;
+  transition: transform 0.2s;
+}
+
+.sidebar-item:hover .sidebar-icon {
+  transform: scale(1.15);
+}
+
+.sidebar-label {
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  opacity: 0.8;
+}
+
+.sidebar-item.active .sidebar-label {
+  opacity: 1;
+}
+
+/* --- Hamburger Button (mobile) --- */
+.hamburger-btn {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 60;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  transition: all 0.25s ease;
+}
+
+.hamburger-btn:hover {
+  background: rgba(255,255,255,0.4);
+  transform: scale(1.05);
+}
+
+.hamburger-btn:active {
+  transform: scale(0.92);
+}
+
+.hamburger-line {
+  display: block;
+  width: 22px;
+  height: 3px;
+  background: #fff;
+  border-radius: 3px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* Hamburger animation when sidebar is open */
+.sidebar-open .hamburger-btn .hamburger-line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.sidebar-open .hamburger-btn .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.sidebar-open .hamburger-btn .hamburger-line:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* --- Sidebar Overlay (mobile) --- */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 45;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.sidebar-open .sidebar-overlay {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- Body offset for sidebar --- */
+body {
+  padding-left: 72px;
+}
+
 /* --- Page Transitions --- */
 .page {
   display: none;
@@ -555,6 +729,34 @@ body {
 }
 
 /* --- Responsive --- */
+@media (max-width: 768px) {
+  /* Sidebar slides off-screen on mobile */
+  .sidebar {
+    transform: translateX(-100%);
+    width: 72px;
+  }
+
+  .sidebar-open .sidebar {
+    transform: translateX(0);
+  }
+
+  /* Show hamburger button */
+  .hamburger-btn {
+    display: flex;
+  }
+
+  /* Remove body padding on mobile (sidebar is overlay) */
+  body {
+    padding-left: 0;
+  }
+
+  /* Adjust page content for hamburger spacing */
+  .page {
+    padding-top: 0;
+    padding-left: 56px;
+  }
+}
+
 @media (max-width: 600px) {
   .home-card { width: 140px; height: 160px; }
   .home-card-icon { font-size: 40px; }
@@ -564,4 +766,22 @@ body {
   .shape-card { width: 120px; height: 130px; }
   .shape-icon { font-size: 45px; }
   .quiz-option { width: 80px; height: 80px; }
+
+  .sidebar {
+    width: 64px;
+  }
+
+  .sidebar-item {
+    width: 52px;
+    min-height: 52px;
+    border-radius: 14px;
+  }
+
+  .sidebar-icon {
+    font-size: 22px;
+  }
+
+  .sidebar-label {
+    font-size: 9px;
+  }
 }

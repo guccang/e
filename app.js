@@ -88,6 +88,11 @@ function showPage(pageId) {
     page.style.animation = 'fadeSlideIn 0.5s ease';
   }
 
+  // Update sidebar active state
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    item.classList.toggle('active', item.getAttribute('data-page') === pageId);
+  });
+
   if (pageId === 'alphabet-page') renderAlphabet();
   if (pageId === 'colors-page') { renderColors(); newColorQuiz(); }
   if (pageId === 'shapes-page') { renderShapes(); newTraceShape(); }
@@ -95,6 +100,39 @@ function showPage(pageId) {
   if (pageId === 'skits-page') { renderSkit(); }
   if (pageId === 'stories-page') { renderStory(); }
 }
+
+// ==========================================
+// Sidebar Navigation
+// ==========================================
+
+/** Navigate to a page and close mobile sidebar */
+function navigateTo(pageId) {
+  showPage(pageId);
+  closeSidebar();
+}
+
+/** Toggle sidebar open/closed (mobile) */
+function toggleSidebar() {
+  document.body.classList.toggle('sidebar-open');
+}
+
+/** Close sidebar (mobile) */
+function closeSidebar() {
+  document.body.classList.remove('sidebar-open');
+}
+
+// Close sidebar on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    if (!document.getElementById('big-letter-overlay').classList.contains('hidden')) {
+      hideBigLetter();
+    } else if (document.body.classList.contains('sidebar-open')) {
+      closeSidebar();
+    } else {
+      showPage('home-page');
+    }
+  }
+});
 
 // ==========================================
 // Module 1: Daily Phrases (日常短句学习)
@@ -815,19 +853,6 @@ function newTraceShape() {
   document.getElementById('trace-hint').textContent = 'Move your finger or mouse over the dotted ' + shape.name + '!';
   drawShape(shape.svgType);
 }
-
-// ==========================================
-// Keyboard shortcut: Escape to go home
-// ==========================================
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    if (!document.getElementById('big-letter-overlay').classList.contains('hidden')) {
-      hideBigLetter();
-    } else {
-      showPage('home-page');
-    }
-  }
-});
 
 // ==========================================
 // Init

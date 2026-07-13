@@ -8,6 +8,48 @@
 </head>
 <body>
 
+<!-- ======== SIDEBAR NAVIGATION ======== -->
+<nav class="sidebar" id="sidebar">
+  <button class="sidebar-item active" data-page="home-page" onclick="navigateTo('home-page')" title="Home">
+    <span class="sidebar-icon">🏠</span>
+    <span class="sidebar-label">Home</span>
+  </button>
+  <button class="sidebar-item" data-page="alphabet-page" onclick="navigateTo('alphabet-page')" title="Alphabet">
+    <span class="sidebar-icon">🔤</span>
+    <span class="sidebar-label">ABC</span>
+  </button>
+  <button class="sidebar-item" data-page="colors-page" onclick="navigateTo('colors-page')" title="Colors">
+    <span class="sidebar-icon">🎨</span>
+    <span class="sidebar-label">Colors</span>
+  </button>
+  <button class="sidebar-item" data-page="shapes-page" onclick="navigateTo('shapes-page')" title="Shapes">
+    <span class="sidebar-icon">🔺</span>
+    <span class="sidebar-label">Shapes</span>
+  </button>
+  <button class="sidebar-item" data-page="daily-page" onclick="navigateTo('daily-page')" title="Phrases">
+    <span class="sidebar-icon">💬</span>
+    <span class="sidebar-label">Phrases</span>
+  </button>
+  <button class="sidebar-item" data-page="skits-page" onclick="navigateTo('skits-page')" title="Skits">
+    <span class="sidebar-icon">🎭</span>
+    <span class="sidebar-label">Skits</span>
+  </button>
+  <button class="sidebar-item" data-page="stories-page" onclick="navigateTo('stories-page')" title="Stories">
+    <span class="sidebar-icon">📖</span>
+    <span class="sidebar-label">Stories</span>
+  </button>
+</nav>
+
+<!-- Hamburger Toggle Button (mobile) -->
+<button class="hamburger-btn" id="hamburger-btn" onclick="toggleSidebar()" title="Menu" aria-label="Toggle navigation menu">
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+</button>
+
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
 <!-- ======== HOME PAGE ======== -->
 <div id="home-page" class="page active">
   <div class="stars-container" id="stars-container"></div>
